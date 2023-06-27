@@ -5,10 +5,10 @@ const result = { value: "" };
 
 const OPENAI_API_KEY = "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";
 
-function SendQuestion() {
+async function SendQuestion() {
     var sQuestion = inputQuestion.value;
 
-    fetch("https://api.openai.com/v1/completions", {
+    const responseTest = await fetch("https://api.openai.com/v1/completions", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -23,6 +23,7 @@ function SendQuestion() {
         }),
     })
         .then((response) => {
+            console.log("TESTE2");
             console.log(response);
             return response.json();
         })
@@ -36,6 +37,7 @@ function SendQuestion() {
 
                 result.value += "Chat GPT: " + text;
                 console.log(result);
+                return result;
             }
         })
         .catch((error) => console.error("Error:", error))
@@ -49,7 +51,11 @@ function SendQuestion() {
     inputQuestion.value = "Carregando...";
     inputQuestion.disabled = true;
 
-    console.log(result);
+    console.log("TESTE: " + result);
+    return responseTest;
 }
 
-SendQuestion();
+var retorno = await SendQuestion();
+
+console.log("RETORNO:");
+console.log(retorno);

@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@600&display=swap');
+
+.App {
+  text-align: center;
+  background-color: rgb(240, 240, 240);
+  width: 100vw;
+  height: 100%;
+  padding-bottom: 100px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.header-title {
+  width: 30%;
+  padding: 15px;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.42);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15.6px);
+  -webkit-backdrop-filter: blur(15.6px);
+  border: 1px solid rgba(255, 255, 255, 0.33);
+
+  font-family: 'Belanosima', sans-serif;
+  color: rgb(7, 40, 95);
+}
+
+.menu-form {
+  text-align: start;
+  margin: 0 100px;
+  margin-top: 50px;
+  padding: 50px;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.42);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15.6px);
+  -webkit-backdrop-filter: blur(15.6px);
+  border: 1px solid rgba(255, 255, 255, 0.33);
+}
+
+.itens-geladeira {
+  padding: 10px 20px;
+  border-radius: 16px;
+  background-color: white;
+  text-align: start;
+}
+
+.form-label {
+  font-weight: bold;
+}
