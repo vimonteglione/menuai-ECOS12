@@ -51,6 +51,10 @@
   text-align: start;
 }
 
+.receita-title {
+  font-weight: bold;
+}
+
 .form-label {
   font-weight: bold;
 }

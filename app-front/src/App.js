@@ -12,7 +12,7 @@ import Axios from "axios";
 function App() {
     const [keywords, setKeyworkds] = useState([]);
     const [ocasiao, setOcasiao] = useState("");
-    const [quantPessoas, setQuantPessoas] = useState();
+    const [quantPessoas, setQuantPessoas] = useState("");
     const [image, setImage] = useState("");
     /* const [imageURL, setImageURL] = useState(""); */
     const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -41,11 +41,12 @@ function App() {
 
     const handleFinalClick = () => {
         console.log(
-            "Recomende uma receita para " +
-                ocasiao +
-                " com " +
-                quantPessoas +
-                " pessoas com os ingredientes (não usando necessáriamente todos) : " +
+            "Recomende uma receita " +
+                (ocasiao !== "" ? "para " + ocasiao + " " : "") +
+                (quantPessoas !== ""
+                    ? "para " + quantPessoas + " pessoas "
+                    : "") +
+                "com os ingredientes (não usando necessáriamente todos) : " +
                 keywords.map((el) => el)
         );
         /* var result = Axios.post("http://localhost:8001/question", {
@@ -137,6 +138,7 @@ function App() {
                         </Button>
                     </Form.Group>
                     <Form.Group className="mb-4 ms-5">
+                        <Form.Label>Itens da Geladeira</Form.Label>
                         <ul className="itens-geladeira">
                             {keywords.map((el, index) => {
                                 return (
