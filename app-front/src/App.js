@@ -11,6 +11,7 @@ import Axios from "axios";
 
 function App() {
     const [keywords, setKeyworkds] = useState([]);
+    const [gptAnswer, setGptAnswer] = useState([]);
     const [ocasiao, setOcasiao] = useState("");
     const [quantPessoas, setQuantPessoas] = useState("");
     const [image, setImage] = useState("");
@@ -49,26 +50,21 @@ function App() {
                 "com os ingredientes (não usando necessáriamente todos) : " +
                 keywords.map((el) => el)
         );
-        /* var result = Axios.post("http://localhost:8001/question", {
+        var result = Axios.post("http://localhost:8002/sendQuestion", {
             question:
-                "Recomende uma receita para " +
-                ocasiao +
-                " com " +
-                quantPessoas +
-                " pessoas com os ingredientes (não usando necessáriamente todos) : " +
+                "Recomende uma receita " +
+                (ocasiao !== "" ? "para " + ocasiao + " " : "") +
+                (quantPessoas !== ""
+                    ? "para " + quantPessoas + " pessoas "
+                    : "") +
+                "com os ingredientes (não usando necessáriamente todos) : " +
                 keywords.map((el) => el),
         }).then((response) => {
             console.log(response.data);
-            console.log(response.data.outputs[0].data.concepts);
-            var foodArray = response.data.outputs[0].data.concepts;
-            var resultFoodArray = [];
-            foodArray.forEach((food) => {
-                resultFoodArray.push(food.name);
-            });
-            setKeyworkds(resultFoodArray);
-            setFinalButtonDisabled(false);
+            setGptAnswer(response.data.value + "\n\n");
+            setSpinner2(false);
         });
-        console.log(result); */
+        console.log(result);
         setSpinner2(true);
     };
 
@@ -166,7 +162,8 @@ function App() {
                     </Button>
                     <Form.Group className="mb-4 text-center">
                         <Form.Label>Receita</Form.Label>
-                        <div className="itens-geladeira">
+                        <div className="itens-geladeira display-linebreak">
+                            {gptAnswer}
                             {spinner2 && (
                                 <Spinner animation="border" role="status">
                                     <span className="visually-hidden">

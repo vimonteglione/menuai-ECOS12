@@ -58,3 +58,7 @@
 .form-label {
   font-weight: bold;
 }
+
+.display-linebreak {
+  white-space: pre-line;
+}

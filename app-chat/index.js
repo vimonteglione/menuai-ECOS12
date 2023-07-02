@@ -1,14 +1,28 @@
+import express from "express";
 import fetch from "node-fetch";
 
-const inputQuestion = { value: "Onde fica Bragança Paulista?" };
+const app = express();
+
+import bodyParser from "body-parser";
+import cors from "cors";
+
+app.use(bodyParser.json({ limit: "100mb" }));
+app.use(cors());
+
 const result = { value: "" };
 
 const OPENAI_API_KEY = "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";
 
-async function SendQuestion() {
-    var sQuestion = inputQuestion.value;
+app.post("/sendQuestion", async (req, res) => {
+    var answer = await SendQuestion(req.body.question);
+    console.log(answer);
+    res.send(answer);
+});
 
-    const responseTest = await fetch("https://api.openai.com/v1/completions", {
+async function SendQuestion(question) {
+    var sQuestion = question;
+
+    const finalResponse = await fetch("https://api.openai.com/v1/completions", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -23,39 +37,27 @@ async function SendQuestion() {
         }),
     })
         .then((response) => {
-            console.log("TESTE2");
             console.log(response);
             return response.json();
         })
         .then((json) => {
-            if (result.value) result.value += "\n";
-
             if (json.error?.message) {
                 result.value += `Error: ${json.error.message}`;
             } else if (json.choices?.[0].text) {
                 var text = json.choices[0].text || "Sem resposta";
 
-                result.value += "Chat GPT: " + text;
+                result.value = text;
                 console.log(result);
                 return result;
             }
         })
-        .catch((error) => console.error("Error:", error))
-        .finally(() => {
-            inputQuestion.value = "";
-        });
+        .catch((error) => console.error("Error:", error));
 
-    if (result.value) result.value += "\n\n\n";
-
-    result.value += `Eu: ${sQuestion}`;
-    inputQuestion.value = "Carregando...";
-    inputQuestion.disabled = true;
-
-    console.log("TESTE: " + result);
-    return responseTest;
+    //console.log(result);
+    return finalResponse;
 }
 
-var retorno = await SendQuestion();
+//var lalala = await SendQuestion("Onde fica Itajubá?");
+//console.log(lalala);
 
-console.log("RETORNO:");
-console.log(retorno);
+app.listen(8002);
