@@ -11,7 +11,7 @@ app.use(cors());
 
 const result = { value: "" };
 
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "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";
 
 app.post("/sendQuestion", async (req, res) => {
     var answer = await SendQuestion(req.body.question);
